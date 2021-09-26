@@ -3,11 +3,11 @@
 ### 1. Agenda Les 1
 
 - **Studiewijzer**: punten voor Oracle certificaat staan rechtstreeks in verhouding tot aantal keer dat je quiz oefende.
-- [Excel "bib"](./Les 1/Bib/bib-excel.xlsx): "flat file" databank; onhandig: een databank is nodig (geen dubbele informatie, tabellen die naar elkaar wijzen)
-  - [MS Access](./Les 1/Bib/bib-access.accdb)
-  - [SQL](./Les 1/Bib/bib-mysql.sql) voor MySQL
+- [Excel "bib"](./Les1/Bib/bib-excel.xlsx): "flat file" databank; onhandig: een databank is nodig (geen dubbele informatie, tabellen die naar elkaar wijzen)
+  - [MS Access](./Les1/Bib/bib-access.accdb)
+  - [SQL](./Les1/Bib/bib-mysql.sql) voor MySQL
 
-- ["bib"](./Les 1/Bib/bib-opgaven.pdf): oefeningen 1 tot en met 5
+- ["bib"](./Les1/Bib/bib-opgaven.pdf): oefeningen 1 tot en met 5
 - Client/Server, [TCP/IP](./TCP.md): server draait bij ons lokaal voorlopig, nog niet "in the cloud"
   - Client stuurt sql, server berekent tweedimensionaal tabulair resultaat
   - Een client communiceert "over de draad" met de server en kan eender welke app zijn (C# .NET, workbench, ...)
@@ -24,7 +24,7 @@
 
 ### 2.2. Installeer MySQL op Windows
 
-* [Procedure](./Les 1/00-install-MySQL.pdf)
+* [Procedure](./Les1/00-install-MySQL.pdf)
 
 ### 2.3. Installeer WSL2, Docker, MySQL en SQLServer
 
@@ -32,11 +32,11 @@
 
 ### 2.4.Installeer SSMS
 
-* [Procedure](./SSMS installeren.md)
+* [Procedure](./SSMSinstalleren.md)
 
 ### 2.5. Maak de databanken aan
 
-* [Procedure voor MySQL](./Les 1/01-importeer-databanken.pdf)
+* [Procedure voor MySQL](./Les1/01-importeer-databanken.pdf)
 
 * [Northwind](./northwind-erd.png)
 
@@ -53,4 +53,4 @@
 
 ### 3. Optioneel: set operaties
 
-* [Youtube](./Set operations.md)
+* [Youtube](./SetOperations.md)
