@@ -6,6 +6,8 @@
 wsl --install -d Ubuntu
 ```
 
+Als Administrator: tik in "Search" C voor "Command Prompt", click rechts, kies "Run as Adminstrator"
+
 ## Update van een bestaande installatie:
 
 ```powershell
