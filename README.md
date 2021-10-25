@@ -58,5 +58,5 @@
 ### 4. Les 5
 
 - [Practicum "GROUP BY"](./Les5/practicum6-GroupBy.pdf)
-- [Revolte: Oracle Notes](./Les5/Oracle_Notes.pdf)
-- [Revolte: Oracle Q&A](./Les5/QA2.pdf)
+- [Revolte: Oracle Notes](./Les5/Oracle/Studenten/Oracle_Notes.pdf)
+- [Revolte: Oracle Q&A](./Les5/Oracle/Studenten/QA2.pdf)
