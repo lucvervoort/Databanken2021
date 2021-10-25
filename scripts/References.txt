@@ -1,0 +1,2 @@
+https://www.geeksengine.com/database/index.php
+https://www.w3resource.com/mysql-exercises/northwind/products-table-exercises/

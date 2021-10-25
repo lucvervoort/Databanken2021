@@ -54,3 +54,9 @@
 ### 3. Optioneel: set operaties
 
 * [Youtube](./SetOperations.md)
+
+### 4. Les 5
+
+- [Practicum "GROUP BY"](./Les5/practicum6-GroupBy.pdf)
+- [Revolte: Oracle Notes](./Les5/Oracle_Notes.pdf)
+- [Revolte: Oracle Q&A](./Les5/QA2.pdf)

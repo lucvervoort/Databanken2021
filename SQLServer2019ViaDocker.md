@@ -1,4 +1,16 @@
-# WSL2
+# WSL2 en Docker
+
+## Inleiding
+
+### WSL 2
+
+Als je een ontwikkelaar of systeembeheerder bent die binaire Linux-bestanden moet compileren of Linux-tools moet gebruiken, dan is het Windows Subsysteem voor Linux (WSL) voor jou. WSL maakt het vooral voor ontwikkelaars gemakkelijker om met Linux te werken onder Windows. WSL is een compatibiliteitslaag van Microsoft waarmee Linux-programma’s onder Windows gedraaid kunnen worden. WSL 2 draait een volledige Linux kernel in een lichtgewicht virtuele machine onder Hyper-V. Gebruikers kunnen een Linux distributie laden vanuit de Microsoft Store en deze als een applicatie op hun pc gebruiken. Windows 10 ondersteunt de installatie van meer Linux distributies zij-aan-zij. Omdat WSL 2 niet langer emulatie gebruikt om Linux systeemaanroepen te vertalen, is het volledig compatibel. Je kan bijvoorbeeld Docker voor Linux uitvoeren. 
+
+### Docker
+
+Docker is een computerprogramma om het bestandssysteem van de computer te virtualiseren.
+
+Docker wordt gebruikt om softwarepakketten uit te voeren die 'containers' worden genoemd. Containers zijn geïsoleerd van elkaar door middel van containervirtualisatie, en bundelen hun eigen applicaties, tools, bibliotheken en configuratiebestanden; ze kunnen met elkaar communiceren via goed gedefinieerde kanalen. Alle containers worden uitgevoerd door een enkele kernel van het besturingssysteem en zijn dus lichter dan virtuele machines. Containers worden gemaakt van 'images' die hun precieze inhoud specificeren. Images worden vaak gemaakt door standaard images te combineren en te wijzigen die zijn gedownload van openbare archieven.
 
 ## Een nieuwe installatie via PowerShell "Run as administrator"
 
@@ -18,47 +30,6 @@ Herstart bij een update WSL (opgelet, wsl herstarten betekent docker stoppen):
 wsl --shutdown
 ```
 
-Voorwaarden voor Linux GUI apps:
-
-- Windows 10 Insider Preview build 21362+
-- Driver voor vGPU, bijvoorbeeld https://developer.nvidia.com/cuda/wsl.
-
-## Update je packages in je distributie (installeert gnome desktop)
-
-```sh
-sudo apt update
-sudo apt upgrade
-sudo apt install gedit -y
-sudo apt install gimp -y
-sudo apt install nautilus -y
-sudo apt install vlc -y
-sudo apt install x11-apps -y
-```
-
-Test: xcalc, xclock, xeyes
-
-## Google Chrome
-
-```sh
-cd /tmp
-sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt install --fix-broken -y
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-```
-
-Test: google-chrome
-
-## Microsoft Teams for Linux
-
-```sh
-cd /tmp
-sudo curl -L -o "./teams.deb" "https://teams.microsoft.com/downloads/desktopurl?env=production&plat=linux&arch=x64&download=true&linuxArchiveType=deb"
-sudo apt install ./teams.deb -y
-```
-
-Test: teams
-
 ## Introductie
 
 Vraag je je als DBA wel eens af of er een manier is om verschillende SQL Server versies/edities en op verschillende OS te testen zonder langdurige voorbereidingen en installaties? Die is er: Docker biedt een gemakkelijke manier.
@@ -71,7 +42,7 @@ Download Docker Desktop voor Windows van https://www.docker.com/docker-windows. 
 
 
 
-![image-20210817152202880](C:\Users\u2389\source\repos\Databanken2021\Images\docker5)
+![image-20210817152202880](./images/docker5)
 
 ![image-20210817152308475](./images/docker6)
 
@@ -130,6 +101,12 @@ Als dit is uitgevoerd, kunnen we "docker ps -a" uitvoeren om een lijst van conta
 
 ## Verbinding maken met SQL Server instance via SSMS
 
+Let op: 
+
+* bij "Server name:" geven we op: "localhost,1436" omdat onze speciale SQLServer communiceert over TCP/IP poort 1436 en niet de standaard SQLServer poort 1433.
+* We activeerden niet de geïntegreerde Windows authenticatie, wat wel aangeraden is wanneer je SQLServer rechtstreeks onder Windows installeert en draait, maar de "SQL Server Authentication", dit wil zeggen de "sa" gebruiker met een specifiek paswoord.
+* Wanneer je geen toegang krijgt tot je SQLServer, dan betekent dit waarschijnlijk dat je je firewall nog moet configureren en toelaten dat je communiceert met poort 1433. Hoe dit precies moet, hangt af van je firewall programma (betreft het McAfee of de standaard Windows firewall).
+
 ![img](./images/docker3)
 
 ![image-20210817153703552](./images/docker14)
@@ -171,5 +148,101 @@ Indien er nog geen "local" instantie herkend wordt, maak er een aan: klik op "+"
 
 Gebruik Docker Desktop om SQLServer en MySQL te starten.
 
+## Windows Firewall
 
+De Windows Firewall laat je toe om inkomend en uitgaand netwerkverkeer voor een bepaalde applicatie of TCP/IP poort te verbieden of juist toe te laten. Standaard is toegang vaak verboden wanneer de firewall actief is. Je kan met andere woorden heel eenvoudig testen of het je firewall is die toegang verhindert door deze even te desactiveren en opnieuw te testen; dit is echter niet aangeraden omdat dit de kans op inbraak verhoogt.
 
+De Windows Firewall kan op je PC geconfigureerd worden of, indien je computer deel uitmaakt van een Windows domein, dan kan de administrator settings en regels bepalen. In grote organisaties kan het zijn dat port filtering geactiveerd wordt op een netwerk router of switch. 
+
+### Hoe een poort blokkeren of openen met Windows 10/8/7 Firewall
+
+**1. Open Windows Firewall: Advanced Settings.** 
+
+Om je Windows Firewall te openen, geef je ‘firewall.cpl’ in  bij de zoekbalk (search bar) en druk je op de Enter toets. Klik op de **Advanced Settings** link aan de linkerkant van de dialog box. Dit brengt het ‘Windows Firewall with Advanced Security’ venster te voorschijn.
+
+![Step 1 to Block Windows Firewall port is to click the Advanced Settings link](./images/click-the-Advanced-Settings-link.png)
+
+**2. Open Inbound Rules.**
+
+Klik links op ‘**Inbound Rules**‘:
+
+![Step 2 to Block Windows Firewall port is to click on Inbound Rules](./images/click-on-Inbound-Rules.png)
+
+**3. Een nieuwe regel opzetten.**
+
+Kies aan de rechterkant voor ‘**New Rule**…’:
+
+![Step 3 to Block Windows Firewall port is to Select New Rule](./images/Select-New-Rule.png)
+
+**4. Open de New Inbound Rule Wizard.**
+
+Selecteer ‘**Port**‘ en klik ‘**Next**.’ dit opent het ‘**New Inbound Rule Wizard**’ venster.
+
+Selecteer ‘**Port**’ als nieuw **Rule Type** en klik ‘**Next**.’
+
+Klik op ‘**Specific local ports**.’ Kies een poortnummer (bijvoorbeeld 1436).
+
+Klik op ‘**Next**‘ om door te gaan.
+
+![Step 4 to Block Windows Firewall port is to Open the New Inbound Rule Wizard](./images/Open-the-New-Inbound-Rule-Wizard.png)
+
+**5. Blokkeer de connectie.**
+
+Selecteer in het Action window ‘**Block the connection**’ en klik ‘**Next**.’
+
+**6. Pas je nieuwe regel toe op elk Profile Type.**
+
+Klik in het Profile window de boxes aan waarop je regel effect heeft: Domain, Private, en Public. Klik op ‘**Next**‘ om door te gaan.
+
+**7. Geef je regel een naam en configureer settings.**
+
+Kies een naam voor je nieuwe regel, bijvoorbeeld ‘**block suspicious ports**.’
+
+Als je klaar bent, klik dan op ‘**Finish**‘ om te bewaren.
+
+![Step 4 to Block Windows Firewall port is to Name your rule and configure the settings](./images/Name-your-rule-and-configure-the-settings.png)
+
+### Hoe open je een poort in de Windows Firewall?
+
+Het kan best zijn dat je een poort in de firewall wenst te openen om toegang te geven tot een bepaalde dienst. Dewe procedure verloopt min of meer op dezelfde manier als hierboven. Volg de instructies voor "New Inbound Rule", kies "Port" en selecteer "Allow the connection".
+
+# Informatief - Linux GUI apps (binnenkort)
+
+- Windows 10 Insider Preview build 21362+
+- Driver voor vGPU, bijvoorbeeld https://developer.nvidia.com/cuda/wsl.
+
+## Update je packages in je distributie (installeert gnome desktop)
+
+```sh
+sudo apt update
+sudo apt upgrade
+sudo apt install gedit -y
+sudo apt install gimp -y
+sudo apt install nautilus -y
+sudo apt install vlc -y
+sudo apt install x11-apps -y
+```
+
+Test: xcalc, xclock, xeyes
+
+## Google Chrome
+
+```sh
+cd /tmp
+sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt install --fix-broken -y
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+```
+
+Test: google-chrome
+
+## Microsoft Teams for Linux
+
+```sh
+cd /tmp
+sudo curl -L -o "./teams.deb" "https://teams.microsoft.com/downloads/desktopurl?env=production&plat=linux&arch=x64&download=true&linuxArchiveType=deb"
+sudo apt install ./teams.deb -y
+```
+
+Test: teams
